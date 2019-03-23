@@ -24,10 +24,6 @@ function scrollMsgList(id) {
 }
 
 function MessageList({messages, isLoading, classes, channel}) {
-  if (isLoading) {
-    return (<LinearProgress />);
-  }
-
   const hasMessages = messages
     && Object.hasOwnProperty.call(messages, channel)
     && messages[channel].length > 0;
@@ -38,6 +34,7 @@ function MessageList({messages, isLoading, classes, channel}) {
 
   return (
     <div className={classes.messages} id="messageList">
+      {isLoading && (<LinearProgress />)}
       {hasMessages ? (
         <div className={classes.list}>
           {messages[channel].map((message) => (
