@@ -4,7 +4,6 @@ import {connect} from 'react-redux';
 
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import Badge from '@material-ui/core/Badge';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
 import Chat from '@material-ui/icons/Chat';

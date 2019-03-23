@@ -3,7 +3,7 @@ export function dispatchThunk(RSAA) {
         const actionResponse = await dispatch(RSAA);
 
         if (actionResponse.error) {
-            throw new Error(actionResponse.payload);
+            console.error(actionResponse.payload);
         }
 
         return actionResponse;

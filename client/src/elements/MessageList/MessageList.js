@@ -8,7 +8,7 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 
 import Message from '../Message';
 
-function styles(theme) {
+function styles() {
   return {
     messages: {
       height: '100%',
@@ -46,7 +46,7 @@ function MessageList({messages, isLoading, classes, channel}) {
 }
 
 MessageList.propTypes = {
-  messages: PropTypes.array,
+  messages: PropTypes.object,
   isLoading: PropTypes.bool,
 };
 
