@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Elements NavElement should match snapshot 1`] = `
+<WithStyles(Button)
+  component={[Function]}
+  disableFocusRipple={true}
+  disableRipple={true}
+  to="/"
+  variant="text"
+>
+  Home
+</WithStyles(Button)>
+`;
+
+exports[`Elements NavElement should match snapshot as active menu item 1`] = `
+<WithStyles(Button)
+  activeClassName="active"
+  component={[Function]}
+  disableFocusRipple={true}
+  disableRipple={true}
+  to="/"
+  variant="text"
+>
+  Home
+</WithStyles(Button)>
+`;
