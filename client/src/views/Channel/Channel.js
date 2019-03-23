@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 
 import {withStyles} from '@material-ui/core/styles';
 
-import {loadMessages, post} from '../../store/actions/channels/channels';
+import {post} from '../../store/actions/channels/channels';
 import ChatInput from '../../elements/ChatInput';
 import MessageList from '../../elements/MessageList';
 
@@ -37,17 +37,9 @@ function styles(theme) {
 
 function Channel({match, loadMessages, classes, postMessage}) {
   const {channel} = match.params;
-  const [lastUpdated, setLastUpdated] = React.useState(0);
-
-  React.useEffect(() => {
-    loadMessages(channel);
-  }, [channel, lastUpdated]);
 
   function post(message) {
-    postMessage(channel, message)
-      .then(() => {
-        setLastUpdated(new Date().getTime());
-      });
+    postMessage(channel, message);
   }
 
   return (
@@ -73,7 +65,6 @@ Channel.propTypes = {
 };
 
 const mapDispatchToProps = {
-  loadMessages,
   postMessage: post,
 };
 

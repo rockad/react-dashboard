@@ -1,7 +1,23 @@
 const express = require('express');
 const router = express.Router();
 
+const io = require('../ws');
+
+const ioChannels = {};
+
+function assignIoChannel(name) {
+  const channelIo = io
+    .of(`/channel-${name}`)
+    .on('connect', function connect(socket) {
+      socket.emit('connected', {name});
+      socket.emit('data', db.channels.find((channel) => channel.name === name));
+    });
+
+  ioChannels[name] = channelIo;
+}
+
 function createChannel(name) {
+  assignIoChannel(name);
   return {
     name,
     messages: [],
@@ -61,6 +77,10 @@ router.put('/:channel', function (req, res, next) {
   }
 
   const message = createMessage(req.body.message);
+
+  if (ioChannels[name]) {
+    ioChannels[name].emit('message', message);
+  }
 
   channel.messages.push(message);
 

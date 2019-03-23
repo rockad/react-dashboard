@@ -6,7 +6,11 @@ import {withStyles} from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
+
+import {loadMessages} from '../../store/actions/channels/channels';
+
 import Message from '../Message';
+import getSocket from '../../helpers/io';
 
 const styles = {
   messages: {
@@ -21,21 +25,43 @@ function scrollMsgList(id) {
   container.scrollTop = container.scrollHeight - container.clientHeight;
 }
 
-function MessageList({messages, isLoading, classes, channel}) {
+function MessageList({messages, isLoading, classes, channel, loadMessages}) {
+  const [messagesIo, setMessagesIo] = React.useState([]);
+
   const hasMessages = messages
     && Object.hasOwnProperty.call(messages, channel)
     && messages[channel].length > 0;
 
+  function addMessage(message) {
+    setMessagesIo([
+      ...messagesIo,
+      message,
+    ]);
+  }
+
+  React.useEffect(() => {
+    const socket = getSocket(`/channel-${channel}`);
+    socket.on('message', addMessage);
+  });
+
+  React.useEffect(() => {
+    loadMessages(channel);
+  }, [channel]);
+
+  React.useEffect(() => {
+    setMessagesIo(hasMessages ? messages[channel] : []);
+  }, [(hasMessages ? messages[channel] : []).length]);
+
   React.useEffect(() => {
     scrollMsgList('messageList');
-  }, [hasMessages && messages[channel].length]);
+  }, [messagesIo.length]);
 
   return (
     <div className={classes.messages} id="messageList">
       {isLoading && (<LinearProgress />)}
-      {hasMessages ? (
+      {messagesIo.length > 0 ? (
         <div className={classes.list}>
-          {messages[channel].map((message) => (
+          {messagesIo.map((message) => (
               <Message key={message.timestamp} message={message} />
             ),
           )}
@@ -61,4 +87,8 @@ function mapStateToProps({channels}) {
   };
 }
 
-export default connect(mapStateToProps)(withStyles(styles)(MessageList));
+const mapDispatchToProps = {
+  loadMessages,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(MessageList));
