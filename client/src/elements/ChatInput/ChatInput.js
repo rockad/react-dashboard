@@ -8,14 +8,18 @@ import Button from '@material-ui/core/Button';
 const styles = theme => ({
   container: {
     display: 'flex',
-    flexWrap: 'wrap',
+    flexDirection: 'row',
     alignContent: 'center',
     justifyContent: 'center',
+    width: '100%',
   },
   textField: {
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
-    width: 200,
+    width: '100%',
+  },
+  button: {
+    marginLeft: 'auto',
   },
 });
 
@@ -35,22 +39,26 @@ function ChatInput({classes, onSubmit}) {
   }
 
   return (
-    <form noValidate autoComplete="off" onSubmit={submit}>
-      <div className={classes.container}>
-        <TextField
-          id="message"
-          placeholder="Message"
-          className={classes.textField}
-          value={message}
-          onChange={handleChange}
-          margin="normal"
-          required
-          autoFocus
-        />
-        <Button disabled={message.length === 0} type="submit" color="primary" variant="contained">
-          Send
-        </Button>
-      </div>
+    <form className={classes.container} noValidate autoComplete="off" onSubmit={submit}>
+      <TextField
+        id="message"
+        placeholder="Message"
+        className={classes.textField}
+        value={message}
+        onChange={handleChange}
+        margin="normal"
+        required
+        autoFocus
+      />
+      <Button
+        disabled={message.length === 0}
+        type="submit"
+        color="primary"
+        variant="contained"
+        className={classes.button}
+      >
+        Send
+      </Button>
     </form>
   );
 }
