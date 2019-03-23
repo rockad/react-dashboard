@@ -16,7 +16,12 @@ function styles() {
       overflow: 'auto',
     },
   };
-};
+}
+
+function scrollMsgList(id) {
+  const container = document.getElementById(id);
+  container.scrollTop = container.scrollHeight - container.clientHeight;
+}
 
 function MessageList({messages, isLoading, classes, channel}) {
   if (isLoading) {
@@ -27,8 +32,12 @@ function MessageList({messages, isLoading, classes, channel}) {
     && Object.hasOwnProperty.call(messages, channel)
     && messages[channel].length > 0;
 
+  React.useEffect(() => {
+    scrollMsgList('messageList');
+  }, [hasMessages && messages[channel].length]);
+
   return (
-    <div className={classes.messages}>
+    <div className={classes.messages} id="messageList">
       {hasMessages ? (
         <div className={classes.list}>
           {messages[channel].map((message) => (
