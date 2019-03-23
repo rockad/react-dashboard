@@ -23,7 +23,7 @@ function MainListItems({isLoading, list, load}) {
 
   if (list.length > 0) {
     return list.map(({name, count}) => (
-      <NavElement to={`/${name}`} variant="list" nav key={name}>
+      <NavElement to={`/channel/${name}`} variant="list" nav key={name}>
         <ListItemIcon>
           <Chat />
         </ListItemIcon>

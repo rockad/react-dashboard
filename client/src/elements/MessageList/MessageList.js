@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 
@@ -8,15 +8,13 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 
 import Message from '../Message';
 
-function styles() {
-  return {
-    messages: {
-      height: '100%',
-      maxHeight: '100%',
-      overflow: 'auto',
-    },
-  };
-}
+const styles = {
+  messages: {
+    height: '100%',
+    maxHeight: '100%',
+    overflow: 'auto',
+  },
+};
 
 function scrollMsgList(id) {
   const container = document.getElementById(id);

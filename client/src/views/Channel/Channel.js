@@ -3,11 +3,8 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 
 import {withStyles} from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import LinearProgress from '@material-ui/core/LinearProgress';
 
 import {loadMessages, post} from '../../store/actions/channels/channels';
-import Message from '../../elements/Message';
 import ChatInput from '../../elements/ChatInput';
 import MessageList from '../../elements/MessageList';
 

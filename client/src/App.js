@@ -26,7 +26,7 @@ function App() {
           />
           />
           <Route
-            path="/:channel"
+            path="/channel/:channel"
             component={LazyComponent(() => import('./views/Channel'))}
           />
           <Route component={LazyComponent(() => import('./views/NotFound'))} />

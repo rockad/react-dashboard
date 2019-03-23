@@ -5,23 +5,25 @@ import {withStyles} from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
-const styles = theme => ({
-  container: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignContent: 'center',
-    justifyContent: 'center',
-    width: '100%',
-  },
-  textField: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
-    width: '100%',
-  },
-  button: {
-    marginLeft: 'auto',
-  },
-});
+function styles(theme) {
+  return {
+    container: {
+      display: 'flex',
+      flexDirection: 'row',
+      alignContent: 'center',
+      justifyContent: 'center',
+      width: '100%',
+    },
+    textField: {
+      marginLeft: theme.spacing.unit,
+      marginRight: theme.spacing.unit,
+      width: '100%',
+    },
+    button: {
+      marginLeft: 'auto',
+    },
+  };
+}
 
 function ChatInput({classes, onSubmit}) {
   const [message, setMessage] = React.useState('');

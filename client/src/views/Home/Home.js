@@ -7,7 +7,7 @@ function Home() {
     <Typography>
       Welcome to Dashboard!
 
-      Please select a channel to start
+      Please select a channel on the left to start
     </Typography>
   );
 }
