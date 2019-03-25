@@ -8,24 +8,26 @@ import ChannelList from './MainListItems';
 
 const drawerWidth = 240;
 
-const styles = (theme) => ({
-  root: {
-    display: 'flex',
-  },
-  drawer: {
-    width: drawerWidth,
-    flexShrink: 0,
-  },
-  drawerPaper: {
-    width: drawerWidth,
-  },
-  content: {
-    flexGrow: 1,
-    padding: theme.spacing.unit * 3,
-    height: '100vh',
-    overflow: 'auto',
-  },
-});
+function styles(theme) {
+  return {
+    root: {
+      display: 'flex',
+    },
+    drawer: {
+      width: drawerWidth,
+      flexShrink: 0,
+    },
+    drawerPaper: {
+      width: drawerWidth,
+    },
+    content: {
+      flexGrow: 1,
+      padding: theme.spacing.unit * 3,
+      height: '100vh',
+      overflow: 'auto',
+    },
+  };
+};
 
 function DefaultLayout({classes, children}) {
   return (

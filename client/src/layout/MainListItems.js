@@ -17,22 +17,19 @@ function MainListItems({isLoading, list, load}) {
     load();
   }, [true]);
 
-  if (isLoading) {
-    return (<LinearProgress />);
-  }
-
-  if (list.length > 0) {
-    return list.map(({name, count}) => (
-      <NavElement to={`/${name}`} variant="list" nav key={name}>
-        <ListItemIcon>
-          <Chat />
-        </ListItemIcon>
-        <ListItemText primary={`${name}`.toUpperCase()} />
-      </NavElement>),
-    );
-  }
-
-  return null;
+  return (
+    <>
+      {isLoading && (<LinearProgress />)}
+      {list.length > 0 ? list.map(({name, count}) => (
+        <NavElement to={`/channel/${name}`} variant="list" nav key={name}>
+          <ListItemIcon>
+            <Chat />
+          </ListItemIcon>
+          <ListItemText primary={`${name}`.toUpperCase()} />
+        </NavElement>),
+      ) : null}
+    </>
+  );
 }
 
 MainListItems.propTypes = {
