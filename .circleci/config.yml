@@ -3,7 +3,10 @@ defaults: &defaults
   docker:
     - image: circleci/node:10
 
-version: 2
+version: 2.1
+orbs:
+  aws-cli: circleci/aws-cli@0.1.13
+
 jobs:
   install:
     <<: *defaults
@@ -44,6 +47,26 @@ jobs:
           path: /tmp/dashboard/client/build
           destination: client-build-artifacts
 
+      - persist_to_workspace:
+          root: /tmp
+          paths:
+            - dashboard/client/build
+
+  deploy_client:
+    <<: *defaults
+    working_directory: /tmp/dashboard/client
+    executor: aws-cli/default
+    steps:
+      - attach_workspace:
+          at: /tmp
+      - aws-cli/install
+      - aws-cli/configure:
+          aws-region: us-east-1
+
+      - run: ls -lah ./build
+      - run: cat ~/.aws/credentials
+#      - run: aws s3 sync ./build s3://${S3_SITE_BUCKET} --delete --acl public-read
+
 workflows:
   version: 2
   client:
@@ -52,3 +75,7 @@ workflows:
       - build_client:
           requires:
             - install
+      - deploy_client:
+          context: aws
+          requires:
+            - build_client
