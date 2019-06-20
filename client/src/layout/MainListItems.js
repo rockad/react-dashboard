@@ -15,7 +15,7 @@ import NavElement from '../elements/NavElement';
 function MainListItems({isLoading, list, load}) {
   React.useEffect(function () {
     load();
-  }, [true]);
+  });
 
   if (isLoading) {
     return (<LinearProgress />);
