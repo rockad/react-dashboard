@@ -1,9 +1,12 @@
+defaults: &defaults
+  working_directory: /tmp/dashboard
+  docker:
+    - image: circleci/node:10
+
 version: 2
 jobs:
   install:
-    docker:
-      - image: circleci/node:10
-    working_directory: ~/dashboard
+    <<: *defaults
 
     steps:
       - checkout
@@ -20,27 +23,25 @@ jobs:
             - node_modules
           key: dependencies-{{ checksum "yarn.lock" }}
 
-  build:
-    docker:
-      - image: circleci/node:10
+      - persist_to_workspace:
+          root: /tmp
+          paths:
+            - dashboard
+
+  build_client:
+    <<: *defaults
     environment:
       NODE_ENV: production
-      CI: true
-    working_directory: ~/dashboard
+    working_directory: /tmp/dashboard/client
 
     steps:
-      - checkout
+      - attach_workspace:
+          at: /tmp
 
-      - restore_cache:
-          keys:
-            - dependencies-{{ checksum "yarn.lock" }}
-            - dependencies-
-
-      - run: cd client
       - run: yarn build
 
       - store_artifacts:
-          path: /tmp/client-artifacts
+          path: /tmp/dashboard/client/build
           destination: client-build-artifacts
 
 workflows:
@@ -48,6 +49,6 @@ workflows:
   client:
     jobs:
       - install
-      - build:
+      - build_client:
           requires:
             - install
