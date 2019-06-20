@@ -1,0 +1,18 @@
+{
+  "name": "react-dashboard",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:rockad/react-dashboard.git",
+  "author": "Aleksandr Korolev <samrockad@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "engines": {
+    "node": "10"
+  },
+  "workspaces": {
+    "packages": [
+      "client",
+      "backend"
+    ]
+  }
+}
