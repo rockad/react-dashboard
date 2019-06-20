@@ -57,7 +57,7 @@ jobs:
     executor: aws-cli/default
     steps:
       - attach_workspace:
-          at: /tmp/dashboard/client/build
+          at: /tmp
       - aws-cli/install
       - aws-cli/configure
       - run: ls -lah
