@@ -54,16 +54,13 @@ jobs:
 
   deploy_client:
     <<: *defaults
-    working_directory: /tmp/dashboard/client
     executor: aws-cli/default
     steps:
       - attach_workspace:
-          at: /tmp
+          at: /tmp/dashboard/client/build
       - aws-cli/install
       - aws-cli/configure
-      - run: ls -lah ./build
-      - run: cat ~/.aws/credentials
-#      - run: aws s3 sync ./build s3://${S3_SITE_BUCKET} --delete --acl public-read
+      - run: aws s3 sync client/build s3://sample-react-app-rockad --delete --acl public-read
 
 workflows:
   version: 2
