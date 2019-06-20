@@ -60,9 +60,7 @@ jobs:
       - attach_workspace:
           at: /tmp
       - aws-cli/install
-      - aws-cli/configure:
-          aws-region: us-east-1
-
+      - aws-cli/configure
       - run: ls -lah ./build
       - run: cat ~/.aws/credentials
 #      - run: aws s3 sync ./build s3://${S3_SITE_BUCKET} --delete --acl public-read
@@ -76,6 +74,6 @@ workflows:
           requires:
             - install
       - deploy_client:
-          context: aws
+          context: AWS
           requires:
             - build_client
