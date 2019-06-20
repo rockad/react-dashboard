@@ -47,19 +47,21 @@ jobs:
           destination: client-build-artifacts
 
       - persist_to_workspace:
-          root: /tmp/dashboard/client/
+          root: /tmp
           paths:
-            - build
+            - dashboard/client/build
 
   deploy_client:
     <<: *defaults
+    working_directory: /tmp/dashboard/client/build
     executor: aws-cli/default
     steps:
       - attach_workspace:
           at: /tmp/dashboard/client/build
       - aws-cli/install
       - aws-cli/configure
-      - run: aws s3 sync client/build s3://sample-react-app-rockad --delete --acl public-read
+      - run: ls -lah
+      - run: aws s3 sync . s3://sample-react-app-rockad --delete --acl public-read
 
 workflows:
   version: 2
