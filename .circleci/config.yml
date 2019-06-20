@@ -10,7 +10,6 @@ orbs:
 jobs:
   install:
     <<: *defaults
-
     steps:
       - checkout
 
@@ -48,9 +47,9 @@ jobs:
           destination: client-build-artifacts
 
       - persist_to_workspace:
-          root: /tmp
+          root: /tmp/dashboard/client/
           paths:
-            - dashboard/client/build
+            - build
 
   deploy_client:
     <<: *defaults
